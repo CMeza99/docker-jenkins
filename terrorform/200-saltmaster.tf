@@ -16,7 +16,8 @@ resource "openstack_compute_secgroup_v2" "secgroup_saltmaster" {
 resource "openstack_compute_instance_v2" "saltmaster911_xla" {
   name        = "saltmaster911.xla"
   flavor_name = "m1.medium"
-  key_pair    = "${openstack_compute_keypair_v2.combined-keypair.name}"
+  key_pair    = "my-keypair"
+  #key_pair    = "${openstack_compute_keypair_v2.combined-keypair.name}"
   image_name  = "${var.images["ec1404"]}"
 
   config_drive = true
