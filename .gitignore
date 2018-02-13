@@ -3,7 +3,10 @@
 
 # .tfstate files
 #*.tfstate
-*.tfstate.*
+#*.tfstate.*
 
 # .tfvars files
 *.tfvars
+
+# dont commit your openstack rc file
+/*openrc.sh
