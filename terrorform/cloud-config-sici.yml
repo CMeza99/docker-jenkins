@@ -1,0 +1,15 @@
+#cloud-config
+write_files:
+  - content: |
+      master: saltmaster911.xla.edgecastcdn.net
+    path: /etc/salt/minion.d/99-master-address.conf
+  - content: |
+      id: sici901.xla
+    path: /etc/salt/minion.d/00-minion_id.conf
+  - content: |
+      rejected_retry: True
+    path: /etc/salt/minion.d/20-rejected_retry.conf
+salt_minion: {}
+hostname: sici901.xla
+fqdn: sici901.xla.edgecastcdn.net
+manage_etc_hosts: false
