@@ -13,7 +13,7 @@ resource "openstack_compute_instance_v2" "sici901_xla" {
     name = "XLA"
   }
 
-  user_data = "${file("${path.module}/cloud-config-sici.yml")}"
+  user_data = "${file("${path.module}/cloud-config-sici_901.yml")}"
 
   metadata = {
     purpose = "spare",
@@ -35,7 +35,7 @@ resource "openstack_compute_instance_v2" "sici902_xla" {
     name = "XLA"
   }
 
-  user_data = "${file("${path.module}/cloud-config-sici.yml")}"
+  user_data = "${file("${path.module}/cloud-config-sici_902.yml")}"
 
   metadata = {
     purpose = "spare",
