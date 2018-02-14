@@ -49,6 +49,12 @@ resource "openstack_compute_secgroup_v2" "secgroup_jenkins" {
     description = "Jenkins"
     # Web Interface
     rule {
+        from_port = 80
+        to_port = 80
+        ip_protocol = "tcp"
+        cidr = "0.0.0.0/0"
+    }
+    rule {
         from_port = 8080
         to_port = 8080
         ip_protocol = "tcp"
