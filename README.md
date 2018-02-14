@@ -10,3 +10,11 @@ terraform init ./terrorform
 terraform plan -out=planfile ./terrorform
 terraform apply "planfile"
 ```
+
+3. Log in to sici
+```sh
+salt-call saltutil.sync_all
+salt-call saltutil.pillar_refresh
+salt-call state.apply global.bootstrap
+salt-call state.apply portalswarm.docker
+```
