@@ -7,7 +7,7 @@ resource "openstack_compute_instance_v2" "sici901_xla" {
 
   config_drive = true
 
-  security_groups = ["default", "jenkins"]
+  security_groups = ["jenkins"]
 
   network {
     name = "XLA"
@@ -29,7 +29,7 @@ resource "openstack_compute_instance_v2" "sici902_xla" {
 
   config_drive = true
 
-  security_groups = ["default", "jenkins"]
+  security_groups = ["jenkins"]
 
   network {
     name = "XLA"
@@ -47,6 +47,13 @@ resource "openstack_compute_instance_v2" "sici902_xla" {
 resource "openstack_compute_secgroup_v2" "secgroup_jenkins" {
     name = "jenkins"
     description = "Jenkins"
+    # ssh
+    rule {
+        from_port = 22
+        to_port = 22
+        ip_protocol = "tcp"
+        cidr = "0.0.0.0/0"
+    }
     # Web Interface
     rule {
         from_port = 80
@@ -55,8 +62,8 @@ resource "openstack_compute_secgroup_v2" "secgroup_jenkins" {
         cidr = "0.0.0.0/0"
     }
     rule {
-        from_port = 8080
-        to_port = 8080
+        from_port = 443
+        to_port = 443
         ip_protocol = "tcp"
         cidr = "0.0.0.0/0"
     }
