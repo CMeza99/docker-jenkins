@@ -1,0 +1,54 @@
+version: '3.3'
+services:
+  master:
+    hostname: jenkins
+    image: jenkins/jenkins:alpine
+    #build:
+    #  context: jenkins
+    #  args: []
+    env_file: []
+    #expose:
+    #  - 8080
+    ports:
+        - target: 8080
+          published: 8080
+          protocol: tcp
+          mode: host
+        - target: 50000
+          published: 50000
+          protocol: tcp
+          mode: host
+    #networks:
+    #  - jenkins_net
+    volumes:
+      - type: volume
+        source: jenkins_home
+        target: /var/jenkins_home
+  reverse_proxy:
+    hostname: reverseproxy
+    image: nginx:alpine
+    env_file: []
+    ports:
+        - target: 80
+          published: 80
+          protocol: tcp
+          mode: host
+        - target: 443
+          published: 443
+          protocol: tcp
+          mode: host
+    #networks:
+    #  - jenkins_net
+    volumes:
+      - type: bind
+        source: ./reverseproxy/nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+      - type: bind
+        source: ./reverseproxy/certs
+        target: /etc/nginx/certs
+        read_only: true
+    #networks:
+    #jenkins_net:
+volumes:
+  jenkins_home:
