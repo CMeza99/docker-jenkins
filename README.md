@@ -20,8 +20,8 @@ salt-call saltutil.pillar_refresh
 salt-call state.apply global.bootstrap
 salt-call state.apply portalswarm.docker
 git clone https://git.edgecastcdn.net/cmeza/sici.git
-mkdir -p ./sici/dockerfiles/reverseproxy/certs
+mkdir -p ./sici/jenkins/reverseproxy/certs
 # GET CERTS
-# COPY INTO ./sici/dockerfiles/reverseproxy/certs
-docker-compose --file sici/dockerfiles/docker-compose.yml --project-name jenkins up -d
+# COPY INTO ./sici/jenkins/reverseproxy/certs
+docker-compose --file sici/jenkins/docker-compose.yml --project-name jenkins up -d
 ```
