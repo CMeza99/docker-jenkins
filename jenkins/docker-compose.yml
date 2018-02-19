@@ -2,8 +2,7 @@
 version: '3.4'
 services:
   master:
-    hostname: jenkins
-    #image: jenkins/jenkins:alpine
+    hostname: master.jenkins
     # healthcheck:
     #  test: [ "[",
     #  "'200'", "-eq",
@@ -32,7 +31,7 @@ services:
         source: master-home
         target: /var/jenkins_home
   reverseproxy:
-    hostname: reverseproxy
+    hostname: reverseproxy.jenkins
     image: nginx:alpine
     depends_on:
       - master
