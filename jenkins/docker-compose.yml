@@ -3,7 +3,7 @@ version: '3.4'
 services:
   master:
     hostname: jenkins
-    image: jenkins/jenkins:alpine
+    #image: jenkins/jenkins:alpine
     # healthcheck:
     #  test: [ "[",
     #  "'200'", "-eq",
@@ -14,8 +14,8 @@ services:
     #  timeout: 5s
     #  retries: 3
     #  start_period: 10s
-    # build:
-    #  context: jenkins
+    build:
+      context: master
     #  args: []
     env_file: []
     expose:
