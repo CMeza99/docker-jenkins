@@ -14,7 +14,11 @@ server {
     ssl_certificate     certs/chained.crt;
     ssl_certificate_key certs/jenkins.key;
     ssl_protocols       TLSv1.2;
-    ssl_ciphers         HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+    # From https://gist.github.com/gavinhungry/7a67174c18085f4a23eb
+    ssl_ciphers EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA512:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:ECDH+AESGCM:ECDH+AES256:DH+AESGCM:DH+AES256:RSA+AESGCM:!aNULL:!eNULL:!LOW:!RC4:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS;
+    ssl_dhparam /etc/ssl/dhparam.pem;
+    ssl_session_cache shared:TLS:2m;
 
     location / {
         proxy_set_header        Host $host:$server_port;
@@ -33,5 +37,6 @@ server {
         proxy_request_buffering off;
         # workaround for https://issues.jenkins-ci.org/browse/JENKINS-45651
         add_header 'X-SSH-Endpoint' '${NGINX_HOST}:50022' always;
+        add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains';
     }
 }
