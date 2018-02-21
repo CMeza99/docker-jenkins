@@ -15,8 +15,6 @@ services:
     #  start_period: 10s
     build:
       context: master
-    #  args: []
-    env_file: []
     expose:
       - "8080"
     ports:
@@ -32,10 +30,13 @@ services:
         target: /var/jenkins_home
   reverseproxy:
     hostname: reverseproxy.jenkins
+    build:
+      context: reverseproxy
     image: nginx:alpine
     depends_on:
       - master
-    env_file: []
+    env_file:
+      -  reverseproxy/variables.env
     ports:
       - target: 80
         published: 80
@@ -48,10 +49,6 @@ services:
     networks:
       - master-net
     volumes:
-      - type: bind
-        source: ./reverseproxy/nginx.conf
-        target: /etc/nginx/nginx.conf
-        read_only: true
       - type: bind
         source: ./reverseproxy/certs
         target: /etc/nginx/certs
