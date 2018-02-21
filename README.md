@@ -1,7 +1,7 @@
 # Jenkins CI / CD Testing
 
-This is the intial pass to setup to standup Jenkins.
-Vaules, hostnames, paths, etc maybe hardcoded.
+This is the initial pass to setup to stand up Jenkins.
+Values, hostnames, paths, etc maybe hardcoded.
 
 1. Setup auth with OpenStack
   * "Access and Security Page" (on the left), download the OpenStack RC File v3 from the API Access tab
@@ -25,3 +25,18 @@ mkdir -p ./sici/jenkins/reverseproxy/certs
 # COPY INTO ./sici/jenkins/reverseproxy/certs
 docker-compose --file sici/jenkins/docker-compose.yml --project-name jenkins up -d
 ```
+
+## Notes
+
+### Domain
+
+Set the domain with the environment variable NGINX_HOST. This can be done via `jenkins/reverseproxy/variables.env`.
+
+### Certs
+
+* chained.crt is
+```sh
+cat DigicertCA.crt domain_pop_edgecastcdn_net.crt > chained.crt
+```
+
+* jenkins.key is the private key that complements the above cert.
