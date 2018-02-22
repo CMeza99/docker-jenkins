@@ -36,7 +36,7 @@ services:
     depends_on:
       - master
     env_file:
-      -  reverseproxy/variables.env
+      - reverseproxy/variables.env
     ports:
       - target: 80
         published: 80
@@ -53,6 +53,10 @@ services:
         source: ./reverseproxy/certs
         target: /etc/nginx/certs
         read_only: true
+      # - type: bind
+        # source: /dev/urandom
+        # target: /dev/random
+        # read_only: true
 networks:
   master-net:
 volumes:
