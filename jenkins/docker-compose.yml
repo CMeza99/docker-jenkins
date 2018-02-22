@@ -1,0 +1,63 @@
+---
+version: '3.4'
+services:
+  master:
+    hostname: master.jenkins
+    # healthcheck:
+    #  test: [ "[",
+    #  "'200'", "-eq",
+    #  "$(curl", '--silent', '--write-out', '"%{http_code}"',
+    #  '--output', '/dev/null', 'http://localhost:8080/login)',
+    #  "]"]
+    #  interval: 1m30s
+    #  timeout: 5s
+    #  retries: 3
+    #  start_period: 10s
+    build:
+      context: master
+    expose:
+      - "8080"
+    ports:
+      - target: 50000
+        published: 50000
+        protocol: tcp
+        mode: host
+    networks:
+      - master-net
+    volumes:
+      - type: volume
+        source: master-home
+        target: /var/jenkins_home
+  reverseproxy:
+    hostname: reverseproxy.jenkins
+    build:
+      context: reverseproxy
+    image: nginx:alpine
+    depends_on:
+      - master
+    env_file:
+      - reverseproxy/variables.env
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+    networks:
+      - master-net
+    volumes:
+      - type: bind
+        source: ./reverseproxy/certs
+        target: /etc/nginx/certs
+        read_only: true
+      # - type: bind
+        # source: /dev/urandom
+        # target: /dev/random
+        # read_only: true
+networks:
+  master-net:
+volumes:
+  master-home:
