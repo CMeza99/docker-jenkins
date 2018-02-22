@@ -10,3 +10,6 @@
 
 # dont commit your openstack rc file
 /*openrc.sh
+
+# dont commit keys for certs
+*.key
