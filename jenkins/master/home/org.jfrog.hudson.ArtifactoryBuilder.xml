@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<org.jfrog.hudson.ArtifactoryBuilder_-DescriptorImpl plugin="artifactory@2.14.0">
+  <useCredentialsPlugin>false</useCredentialsPlugin>
+  <artifactoryServers>
+    <org.jfrog.hudson.ArtifactoryServer>
+      <url>https://artifact.edgecastcdn.net/artifactory</url>
+      <id>Direct</id>
+      <timeout>300</timeout>
+      <bypassProxy>false</bypassProxy>
+      <connectionRetry>3</connectionRetry>
+      <deployerCredentialsConfig>
+        <credentials>
+          <username>svc-testing-ci</username>
+          <password></password>
+        </credentials>
+      </deployerCredentialsConfig>
+    </org.jfrog.hudson.ArtifactoryServer>
+  </artifactoryServers>
+  <pushToBintrayEnabled>false</pushToBintrayEnabled>
+  <buildInfoProxyEnabled>false</buildInfoProxyEnabled>
+</org.jfrog.hudson.ArtifactoryBuilder_-DescriptorImpl>
