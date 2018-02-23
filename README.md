@@ -35,13 +35,28 @@ Set the domain with the environment variable NGINX_HOST. This can be done via `j
 ## Certs
 
 * chained.crt is
+
 ```sh
 cat DigicertCA.crt domain_pop_edgecastcdn_net.crt > chained.crt
 ```
 
 * jenkins.key is the private key that complements the above cert.
 
-## Update List of Plugins
+## Plugins
+
+### Update List
+
 ```sh
 curl -SsL 'https://<USER>:<PASSWORD>@sici901.xla.edgecastcdn.net//pluginManager/api/xml?depth=1&xpath=/*/*/shortName|/*/*/version&wrapper=plugins' | perl -pe 's/.*?<shortName>([\w-]+).*?<version>([^<]+)()(<\/\w+>)+/\1 \2\n/g'|sed 's/ /:/' | sort > jenkins/master/plugins.txt
 ```
+
+### Artifactory
+
+1. Goto https://jenkins.url/configure, and go to the Artifactory section
+2. Uncheck `Enable Push to Bintray`
+3. Check `Use the Credentials Plugin`
+4. Enter a label for the server id
+5. Enter Artifactor URL, direct to the instance url is `https://artifact.edgecastcdn.net/artifactory`
+6. Add credentials
+  * Scope = System (*Needs to be verified*)
+  * Get service account user name and password out of Lighthouse
